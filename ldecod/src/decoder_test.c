@@ -235,6 +235,7 @@ void open_KeyFile()
 	strncpy(key_file, p_Dec->p_Inp->keyfile_dir, strlen(p_Dec->p_Inp->keyfile_dir));
 	strncat(key_file, filename, strlen(filename));
 	strcat(key_file, ".key");
+	strcat(key_file, ".txt");
 	//printf("key_file: %s\n",key_file);	
 
 	p_Dec->p_KeyFile = fopen(key_file, "w+");
@@ -262,6 +263,11 @@ int g_KeyUnitBufferSize = 0;
 void print_KeyUnit()
 {
 	FILE* log = fopen("key_unit_log", "w+");
+	if(!log)
+	{
+		printf("open key_unit_log error!\n");
+		exit(1);
+	}
 	KeyUnit* p_tmp = g_pKeyUnitBuffer;
 	int i = 0;
 	char s[100];
@@ -353,7 +359,7 @@ int main(int argc, char **argv)
 
 	//encrypt the H.264 file
 	if(p_Dec->p_Inp->enable_key && g_pKeyUnitBuffer && g_KeyUnitIdx > 0)
-		Encrypt(g_pKeyUnitBuffer, g_KeyUnitIdx);
+		;//Encrypt(g_pKeyUnitBuffer, g_KeyUnitIdx);
 
 	close_KeyFile();
   iRet = FinitDecoder(&pDecPicList);
